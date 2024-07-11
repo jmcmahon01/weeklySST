@@ -109,7 +109,10 @@ function searchRuns() {
   const searchTerm = searchInput.value.trim().toLowerCase();
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
 
+  console.log('Search Term:', searchTerm); // Log search term for debugging
+
   const filteredRuns = previousRuns.filter(run => {
+    console.log('Run Instrument:', run.instrument); // Log each run's instrument for debugging
     return run.instrument && run.instrument.toLowerCase().includes(searchTerm);
   });
 
