@@ -69,9 +69,18 @@ function analyzeData() {
       }
     });
 
+    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
+
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = ''; // Clear previous results
 
+    // Create and append overall result at the top
+    const overallResultDiv = document.createElement('div');
+    overallResultDiv.classList.add('overall-result');
+    overallResultDiv.innerHTML = `<h2>Current Run Result: ${runResult}</h2>`;
+    resultDiv.appendChild(overallResultDiv);
+
+    // Append individual analyte results
     results.forEach(result => {
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('analyte-result');
@@ -84,14 +93,12 @@ function analyzeData() {
       resultDiv.appendChild(analyteDiv);
     });
 
-    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
-    resultDiv.innerHTML += `<h2>Overall Result: ${runResult}</h2>`;
-
     saveRun(selectedInstrument, runResult, csvData);
   };
 
   reader.readAsText(fileInput.files[0]);
 }
+
 
 function saveRun(instrument, result, data) {
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
