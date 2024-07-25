@@ -85,7 +85,7 @@ function analyzeData() {
     });
 
     const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
-    resultDiv.innerHTML += `<h2>Overall Result: ${runResult}</h2>`;
+    resultDiv.innerHTML += `<h2>Overall Run Result: ${runResult}</h2>`;
 
     saveRun(selectedInstrument, runResult, csvData);
   };
