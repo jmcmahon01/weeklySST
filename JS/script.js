@@ -77,7 +77,11 @@ function analyzeData() {
     // Create and append overall result at the top
     const overallResultDiv = document.createElement('div');
     overallResultDiv.classList.add('overall-result');
+<<<<<<< HEAD
     overallResultDiv.innerHTML = `<h2>Current Run Result: ${runResult}</h2>`;
+=======
+    overallResultDiv.innerHTML = `<h2>Overall Result: ${runResult}</h2>`;
+>>>>>>> main
     resultDiv.appendChild(overallResultDiv);
 
     // Append individual analyte results
@@ -94,10 +98,13 @@ function analyzeData() {
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
     resultDiv.innerHTML += `<h2>Overall Run Result: ${runResult}</h2>`;
 
+>>>>>>> main
+=======
 >>>>>>> main
     saveRun(selectedInstrument, runResult, csvData);
   };
