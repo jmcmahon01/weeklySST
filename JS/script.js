@@ -103,11 +103,10 @@ function analyzeData() {
 }
 
 function saveRun(instrument, result, data) {
-  console.log('Saving Run:', { instrument, result, data }); // Log data
+  console.log('Saving run for instrument:', instrument); // Debug log
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
   previousRuns.push({ instrument, result, data, timestamp: new Date().toISOString() });
   localStorage.setItem('previousRuns', JSON.stringify(previousRuns));
-  console.log('Saved Runs:', previousRuns); // Log saved runs
 }
 
 function searchRuns() {
