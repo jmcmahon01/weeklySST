@@ -18,7 +18,7 @@ document.getElementById('resetBtn').addEventListener('click', function () {
   document.getElementById('fileUpload').value = ''; // Clear file upload field
   document.getElementById('result').innerHTML = ''; // Clear result display
   document.getElementById('search').value = ''; // Clear search input
-  clearPreviousRuns(); // Clear previous runs display
+  clearPreviousRuns(); // Clear previous runs display 
 });
 
 function clearPreviousRuns() {
@@ -69,22 +69,14 @@ function analyzeData() {
       }
     });
 
-    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
-
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = ''; // Clear previous results
 
-    // Create and append overall result at the top
-    const overallResultDiv = document.createElement('div');
-    overallResultDiv.classList.add('overall-result');
-<<<<<<< HEAD
-    overallResultDiv.innerHTML = `<h2>Current Run Result: ${runResult}</h2>`;
-=======
-    overallResultDiv.innerHTML = `<h2>Overall Result: ${runResult}</h2>`;
->>>>>>> main
-    resultDiv.appendChild(overallResultDiv);
+    // Display overall result at the top
+    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
+    resultDiv.innerHTML = `<h2>Overall Result: ${runResult}</h2>`;
 
-    // Append individual analyte results
+    // Display individual analyte results
     results.forEach(result => {
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('analyte-result');
@@ -97,21 +89,12 @@ function analyzeData() {
       resultDiv.appendChild(analyteDiv);
     });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
-    resultDiv.innerHTML += `<h2>Overall Run Result: ${runResult}</h2>`;
-
->>>>>>> main
-=======
->>>>>>> main
+    // Save the run data
     saveRun(selectedInstrument, runResult, csvData);
   };
 
   reader.readAsText(fileInput.files[0]);
 }
-
 
 function saveRun(instrument, result, data) {
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
