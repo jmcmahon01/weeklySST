@@ -7,6 +7,12 @@ const establishedMeans = {
 
 let selectedInstrument;
 
+// Set the default selectedInstrument based on the dropdown value when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  selectedInstrument = document.getElementById('lcms').value;
+});
+
+// Update selectedInstrument when a new option is selected
 document.getElementById('lcms').addEventListener('change', (event) => {
   selectedInstrument = event.target.value;
 });
@@ -18,7 +24,7 @@ document.getElementById('resetBtn').addEventListener('click', function () {
   document.getElementById('fileUpload').value = ''; // Clear file upload field
   document.getElementById('result').innerHTML = ''; // Clear result display
   document.getElementById('search').value = ''; // Clear search input
-  clearPreviousRuns(); // Clear previous runs display 
+  clearPreviousRuns(); // Clear previous runs display
 });
 
 function clearPreviousRuns() {
@@ -97,9 +103,11 @@ function analyzeData() {
 }
 
 function saveRun(instrument, result, data) {
+  console.log('Saving Run:', { instrument, result, data }); // Log data
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
   previousRuns.push({ instrument, result, data, timestamp: new Date().toISOString() });
   localStorage.setItem('previousRuns', JSON.stringify(previousRuns));
+  console.log('Saved Runs:', previousRuns); // Log saved runs
 }
 
 function searchRuns() {
