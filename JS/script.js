@@ -93,6 +93,12 @@ function analyzeData() {
       resultDiv.appendChild(analyteDiv);
     });
 
+<<<<<<< HEAD
+=======
+    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
+    resultDiv.innerHTML += `<h2>Overall Run Result: ${runResult}</h2>`;
+
+>>>>>>> main
     saveRun(selectedInstrument, runResult, csvData);
   };
 
