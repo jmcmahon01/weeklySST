@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weekly SST checks (P2)</title>
   <link rel="stylesheet" href="CSS/styles.css">
 </head>
-
 <body>
   <div class="container">
     <h1>LCMS Analyzer</h1>
@@ -27,12 +25,16 @@
     <button id="analyzeBtn">Analyze Data</button>
     <button id="resetBtn">Reset Form</button>
     <div id="result"></div>
+    
     <h2>Previous Runs</h2>
     <input type="text" id="search" placeholder="Search by LCMS instrument...">
     <button onclick="searchRuns()">Search</button>
     <div id="previousRuns"></div>
+
+    <h2>Manage Established Means</h2>
+    <div id="establishedMeansContainer"></div>
+    <button id="saveMeansBtn">Save Changes</button>
   </div>
   <script src="JS/script.js"></script>
 </body>
-
 </html>

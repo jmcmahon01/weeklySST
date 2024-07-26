@@ -1,20 +1,65 @@
-const establishedMeans = {
+const defaultEstablishedMeans = {
   morphine: { peakArea: 1000, retentionTime: 5 },
   hydromorphone: { peakArea: 1200, retentionTime: 5.5 },
   THC: { peakArea: 1500, retentionTime: 6 },
   amitriptyline: { peakArea: 900, retentionTime: 4.5 }
 };
 
-let selectedInstrument;
+let establishedMeans = loadEstablishedMeans();
 
-// Set the default selectedInstrument based on the dropdown value when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-  selectedInstrument = document.getElementById('lcms').value;
-});
+function loadEstablishedMeans() {
+  const storedMeans = localStorage.getItem('establishedMeans');
+  return storedMeans ? JSON.parse(storedMeans) : defaultEstablishedMeans;
+}
 
-// Update selectedInstrument when a new option is selected
+function saveEstablishedMeans() {
+  const updatedMeans = {};
+
+  for (const analyte in establishedMeans) {
+    if (establishedMeans.hasOwnProperty(analyte)) {
+      const peakArea = parseFloat(document.getElementById(`peakArea_${analyte}`).value);
+      const retentionTime = parseFloat(document.getElementById(`retentionTime_${analyte}`).value);
+      updatedMeans[analyte] = { peakArea, retentionTime };
+    }
+  }
+
+  establishedMeans = updatedMeans;
+  localStorage.setItem('establishedMeans', JSON.stringify(establishedMeans));
+  console.log('Updated Established Means:', establishedMeans);
+  displayEstablishedMeans(); // Refresh the display with updated values
+  alert('Established means have been saved successfully!'); // Display alert
+}
+
+function displayEstablishedMeans() {
+  const container = document.getElementById('establishedMeansContainer');
+  container.innerHTML = '';
+
+  for (const analyte in establishedMeans) {
+    if (establishedMeans.hasOwnProperty(analyte)) {
+      const { peakArea, retentionTime } = establishedMeans[analyte];
+      const analyteDiv = document.createElement('div');
+      analyteDiv.classList.add('established-means-item');
+      analyteDiv.innerHTML = `
+        <label for="peakArea_${analyte}">${analyte} Peak Area:</label>
+        <input type="number" id="peakArea_${analyte}" value="${peakArea}">
+        <label for="retentionTime_${analyte}">${analyte} Retention Time:</label>
+        <input type="number" id="retentionTime_${analyte}" value="${retentionTime}">
+      `;
+      container.appendChild(analyteDiv);
+    }
+  }
+}
+
+// Initialize established means display
+displayEstablishedMeans();
+
+document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
+
+let selectedInstrument = document.getElementById('lcms').value; // Initialize with default selected value
+
 document.getElementById('lcms').addEventListener('change', (event) => {
   selectedInstrument = event.target.value;
+  console.log('Selected Instrument:', selectedInstrument); // Debug
 });
 
 document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
@@ -103,7 +148,6 @@ function analyzeData() {
 }
 
 function saveRun(instrument, result, data) {
-  console.log('Saving run for instrument:', instrument); // Debug log
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
   previousRuns.push({ instrument, result, data, timestamp: new Date().toISOString() });
   localStorage.setItem('previousRuns', JSON.stringify(previousRuns));
