@@ -98,8 +98,10 @@ button:hover {
 .established-means-item input {
   flex: 1;
   margin-right: 10px;
+  max-width: 80px;
 }
 
 #saveMeansBtn {
   align-self: center;
 }
+
