@@ -39,7 +39,7 @@ Or access application in web browser at:
 https://jmcmahon01.github.io/weeklySST
 
 ## Known Bugs
-* The runs under LCMS 2 are being saved in local storage under LCMS 5. 
+* No known bugs at this time. 
 
 
 ## License
