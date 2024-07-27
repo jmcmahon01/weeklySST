@@ -1,26 +1,33 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-image: url('https://onlinelibrary.wiley.com/cms/asset/063f9aa7-50e4-4c8d-b837-9c9d5e9cafa3/jamc151934-fig-0001a-m.jpg/lcmsimage.png');
+  background-size: cover;
+  background-attachment: fixed;
   padding: 20px;
+  color: #333;
 }
 
 .container {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
+  /* Semi-transparent background */
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
   margin: 0 auto;
 }
 
 h1,
 h2 {
-  color: #333;
+  color: #444;
+  text-align: center;
 }
 
 label {
   display: block;
   margin-top: 10px;
+  font-weight: bold;
+  color: #444;
 }
 
 select,
@@ -29,16 +36,22 @@ input[type="text"],
 button {
   display: block;
   margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
-  padding: 10px 15px;
   background-color: #5cb85c;
   color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  margin-right: 10px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
@@ -48,6 +61,7 @@ button:hover {
 #result {
   margin-top: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 #previousRuns {
@@ -59,6 +73,7 @@ button:hover {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .analyte-result h3 {
@@ -76,32 +91,47 @@ button:hover {
   border-top: 1px solid #ccc;
 }
 
-#establishedMeansContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#establishedMeansForm {
+  margin-top: 20px;
 }
 
-.established-means-item {
+#establishedMeansContainer div {
+  margin-bottom: 15px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  width: 100%;
+  align-items: center;
 }
 
-.established-means-item label {
-  margin-right: 10px;
-  min-width: 150px;
-}
-
-.established-means-item input {
+#establishedMeansContainer label {
   flex: 1;
   margin-right: 10px;
-  max-width: 80px;
+}
+
+#establishedMeansContainer input {
+  flex: 2;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #saveMeansBtn {
-  align-self: center;
+  display: block;
+  margin: 0 auto;
+  background-color: #337ab7;
+  color: white;
 }
 
+#saveMeansBtn:hover {
+  background-color: #286090;
+}
+
+#analyzeBtn,
+#resetBtn,
+#search {
+  width: calc(100% - 20px);
+  max-width: 200px;
+}
+
+input::placeholder {
+  color: #999;
+}
