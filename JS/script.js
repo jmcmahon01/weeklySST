@@ -1,8 +1,38 @@
 const defaultEstablishedMeans = {
-  morphine: { peakArea: 1000, retentionTime: 5 },
-  hydromorphone: { peakArea: 1200, retentionTime: 5.5 },
-  THC: { peakArea: 1500, retentionTime: 6 },
-  amitriptyline: { peakArea: 900, retentionTime: 4.5 }
+  "6-MAM 1": { peakArea: 100, retentionTime: 1 },
+  "Alprazolam": { peakArea: 200, retentionTime: 2 },
+  "Amphetamine": { peakArea: 300, retentionTime: 3 },
+  "Benzoylecgonine": { peakArea: 400, retentionTime: 4 },
+  "Buprenorphine": { peakArea: 500, retentionTime: 5 },
+  "Carisoprodol": { peakArea: 600, retentionTime: 6 },
+  "Chlordiazepoxide": { peakArea: 700, retentionTime: 7 },
+  "Clonazepam": { peakArea: 800, retentionTime: 8 },
+  "Codeine": { peakArea: 900, retentionTime: 9 },
+  "Cotinine": { peakArea: 1000, retentionTime: 10 },
+  "Diazepam": { peakArea: 1100, retentionTime: 11 },
+  "EDDP": { peakArea: 1200, retentionTime: 12 },
+  "Fentanyl": { peakArea: 1300, retentionTime: 13 },
+  "Flurazepam": { peakArea: 1400, retentionTime: 14 },
+  "Gabapentin": { peakArea: 1500, retentionTime: 15 },
+  "Hydrocodone": { peakArea: 1600, retentionTime: 16 },
+  "Hydromorphone": { peakArea: 1700, retentionTime: 17 },
+  "Lorazepam": { peakArea: 1800, retentionTime: 18 },
+  "Methadone": { peakArea: 1900, retentionTime: 19 },
+  "Methamphetamine": { peakArea: 2000, retentionTime: 20 },
+  "Midazolam": { peakArea: 2100, retentionTime: 21 },
+  "Morphine": { peakArea: 2200, retentionTime: 22 },
+  "Naloxone": { peakArea: 2300, retentionTime: 23 },
+  "Naltrexone": { peakArea: 2400, retentionTime: 24 },
+  "Nordiazepam": { peakArea: 2500, retentionTime: 25 },
+  "Norhydrocodone": { peakArea: 2600, retentionTime: 26 },
+  "Oxazepam": { peakArea: 2700, retentionTime: 27 },
+  "Oxycodone": { peakArea: 2800, retentionTime: 28 },
+  "Oxymorphone": { peakArea: 2900, retentionTime: 29 },
+  "Phencyclidine": { peakArea: 3000, retentionTime: 30 },
+  "Temazepam": { peakArea: 3100, retentionTime: 31 },
+  "THC": { peakArea: 3200, retentionTime: 32 },
+  "Tramadol": { peakArea: 3300, retentionTime: 33 },
+  "Zolpidem": { peakArea: 3400, retentionTime: 34 }
 };
 
 let establishedMeans = loadEstablishedMeans();
@@ -156,32 +186,32 @@ function saveRun(instrument, result, data) {
 function searchRuns() {
   const searchInput = document.getElementById('search');
   if (!searchInput) {
-    console.error('Search input element not found.');
     return;
   }
 
-  const searchTerm = searchInput.value.trim().toLowerCase();
+  const query = searchInput.value.toLowerCase();
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
-
-  console.log('Search Term:', searchTerm); // Log search term for debugging
-
-  const filteredRuns = previousRuns.filter(run => {
-    console.log('Run Instrument:', run.instrument); // Log each run's instrument for debugging
-    return run.instrument && run.instrument.toLowerCase().includes(searchTerm);
-  });
+  const filteredRuns = previousRuns.filter(run => run.instrument.toLowerCase().includes(query) || run.result.toLowerCase().includes(query));
 
   const previousRunsDiv = document.getElementById('previousRuns');
-  previousRunsDiv.innerHTML = '';
+  previousRunsDiv.innerHTML = ''; // Clear previous runs display
 
-  if (filteredRuns.length === 0) {
-    const noResultsDiv = document.createElement('div');
-    noResultsDiv.textContent = 'No results found.';
-    previousRunsDiv.appendChild(noResultsDiv);
-  } else {
-    filteredRuns.forEach(run => {
-      const runDiv = document.createElement('div');
-      runDiv.textContent = `Instrument: ${run.instrument}, Result: ${run.result}, Date: ${new Date(run.timestamp).toLocaleString()}`;
-      previousRunsDiv.appendChild(runDiv);
-    });
-  }
+  filteredRuns.forEach(run => {
+    const runDiv = document.createElement('div');
+    runDiv.classList.add('run-result');
+    runDiv.innerHTML = `
+      <p>Instrument: ${run.instrument}</p>
+      <p>Result: ${run.result}</p>
+      <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
+      <hr>
+    `;
+    previousRunsDiv.appendChild(runDiv);
+  });
 }
+
+document.getElementById('searchBtn').addEventListener('click', searchRuns);
+document.getElementById('search').addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    searchRuns();
+  }
+});
