@@ -1,72 +1,81 @@
 const defaultEstablishedMeans = {
-  "6-MAM 1": { peakArea: 100, retentionTime: 1 },
-  "Alprazolam": { peakArea: 200, retentionTime: 2 },
-  "Amphetamine": { peakArea: 300, retentionTime: 3 },
-  "Benzoylecgonine": { peakArea: 400, retentionTime: 4 },
-  "Buprenorphine": { peakArea: 500, retentionTime: 5 },
-  "Carisoprodol": { peakArea: 600, retentionTime: 6 },
-  "Chlordiazepoxide": { peakArea: 700, retentionTime: 7 },
-  "Clonazepam": { peakArea: 800, retentionTime: 8 },
-  "Codeine": { peakArea: 900, retentionTime: 9 },
-  "Cotinine": { peakArea: 1000, retentionTime: 10 },
-  "Diazepam": { peakArea: 1100, retentionTime: 11 },
-  "EDDP": { peakArea: 1200, retentionTime: 12 },
-  "Fentanyl": { peakArea: 1300, retentionTime: 13 },
-  "Flurazepam": { peakArea: 1400, retentionTime: 14 },
-  "Gabapentin": { peakArea: 1500, retentionTime: 15 },
-  "Hydrocodone": { peakArea: 1600, retentionTime: 16 },
-  "Hydromorphone": { peakArea: 1700, retentionTime: 17 },
-  "Lorazepam": { peakArea: 1800, retentionTime: 18 },
-  "Methadone": { peakArea: 1900, retentionTime: 19 },
-  "Methamphetamine": { peakArea: 2000, retentionTime: 20 },
-  "Midazolam": { peakArea: 2100, retentionTime: 21 },
-  "Morphine": { peakArea: 2200, retentionTime: 22 },
-  "Naloxone": { peakArea: 2300, retentionTime: 23 },
-  "Naltrexone": { peakArea: 2400, retentionTime: 24 },
-  "Nordiazepam": { peakArea: 2500, retentionTime: 25 },
-  "Norhydrocodone": { peakArea: 2600, retentionTime: 26 },
-  "Oxazepam": { peakArea: 2700, retentionTime: 27 },
-  "Oxycodone": { peakArea: 2800, retentionTime: 28 },
-  "Oxymorphone": { peakArea: 2900, retentionTime: 29 },
-  "Phencyclidine": { peakArea: 3000, retentionTime: 30 },
-  "Temazepam": { peakArea: 3100, retentionTime: 31 },
-  "THC": { peakArea: 3200, retentionTime: 32 },
-  "Tramadol": { peakArea: 3300, retentionTime: 33 },
-  "Zolpidem": { peakArea: 3400, retentionTime: 34 }
+  '6-MAM 1': { peakArea: 1000, retentionTime: 5 },
+  'Alprazolam 1': { peakArea: 1000, retentionTime: 5 },
+  'Aminoclonazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'Aminoflunitrazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'Amitriptyline 1': { peakArea: 1000, retentionTime: 5 },
+  'Amphetamine 1': { peakArea: 1000, retentionTime: 5 },
+  'Benzoylecgonine 1': { peakArea: 1000, retentionTime: 5 },
+  'Buprenorphine 1': { peakArea: 1000, retentionTime: 5 },
+  'Bupropion 1': { peakArea: 1000, retentionTime: 5 },
+  'Carisoprodol 1': { peakArea: 1000, retentionTime: 5 },
+  'Citalopram 1': { peakArea: 1000, retentionTime: 5 },
+  'Clonidine 1': { peakArea: 1000, retentionTime: 5 },
+  'Codeine 1': { peakArea: 1000, retentionTime: 5 },
+  'Cotinine 1': { peakArea: 1000, retentionTime: 5 },
+  'Cyclobenzaprine 1': { peakArea: 1000, retentionTime: 5 },
+  'Desipramine 1': { peakArea: 1000, retentionTime: 5 },
+  'Desmethyldoxepin 1': { peakArea: 1000, retentionTime: 5 },
+  'Desmethyltapentadol 1': { peakArea: 1000, retentionTime: 5 },
+  'Desmethyltramadol 1': { peakArea: 1000, retentionTime: 5 },
+  'Dextromethorphan 1': { peakArea: 1000, retentionTime: 5 },
+  'Diazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'Doxepin 1': { peakArea: 1000, retentionTime: 5 },
+  'EDDP 1': { peakArea: 1000, retentionTime: 5 },
+  'Fentanyl 1': { peakArea: 1000, retentionTime: 5 },
+  'Fluoxetine 1': { peakArea: 1000, retentionTime: 5 },
+  'Hydrocodone 1': { peakArea: 1000, retentionTime: 5 },
+  'Hydromorphone 1': { peakArea: 1000, retentionTime: 5 },
+  'Hydroxyalprazolam 1': { peakArea: 1000, retentionTime: 5 },
+  'Hydroxybupropion 1': { peakArea: 1000, retentionTime: 5 },
+  'Imipramine 1': { peakArea: 1000, retentionTime: 5 },
+  'Ketamine 1': { peakArea: 1000, retentionTime: 5 },
+  'Lorazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'MDA 1': { peakArea: 1000, retentionTime: 5 },
+  'MDEA 1': { peakArea: 1000, retentionTime: 5 },
+  'MDMA 1': { peakArea: 1000, retentionTime: 5 },
+  'Meperidine 1': { peakArea: 1000, retentionTime: 5 },
+  'Meprobamate 1': { peakArea: 1000, retentionTime: 5 },
+  'Methadone 1': { peakArea: 1000, retentionTime: 5 },
+  'Methamphetamine 1': { peakArea: 1000, retentionTime: 5 },
+  'Methylphenidate 1': { peakArea: 1000, retentionTime: 5 },
+  'Morphine 1': { peakArea: 1000, retentionTime: 5 },
+  'Naloxone 1': { peakArea: 1000, retentionTime: 5 },
+  'Naltrexone 1': { peakArea: 1000, retentionTime: 5 },
+  'Norbuprenorphine 1': { peakArea: 1000, retentionTime: 5 },
+  'Nordiazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'Norfentanyl 1': { peakArea: 1000, retentionTime: 5 },
+  'Norhydrocodone 1': { peakArea: 1000, retentionTime: 5 },
+  'Norketamine 1': { peakArea: 1000, retentionTime: 5 },
+  'Normeperidine 1': { peakArea: 1000, retentionTime: 5 },
+  'Noroxycodone 1': { peakArea: 1000, retentionTime: 5 },
+  'Nortriptyline 1': { peakArea: 1000, retentionTime: 5 },
+  'Oxazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'Oxycodone 1': { peakArea: 1000, retentionTime: 5 },
+  'Oxymorphone 1': { peakArea: 1000, retentionTime: 5 },
+  'Phencyclidine 1': { peakArea: 1000, retentionTime: 5 },
+  'Ritalinic Acid 1': { peakArea: 1000, retentionTime: 5 },
+  'Tapentadol 1': { peakArea: 1000, retentionTime: 5 },
+  'Temazepam 1': { peakArea: 1000, retentionTime: 5 },
+  'Tramadol 1': { peakArea: 1000, retentionTime: 5 },
+  'Zaleplon 1': { peakArea: 1000, retentionTime: 5 },
+  'Zolpidem 1': { peakArea: 1000, retentionTime: 5 },
+  'Zolpidem Phenyl COOH 1': { peakArea: 1000, retentionTime: 5 },
+  'Amobarbital 1': { peakArea: 1000, retentionTime: 5 },
+  'Butalbital 1': { peakArea: 1000, retentionTime: 5 },
+  'Phenobarbital 1': { peakArea: 1000, retentionTime: 5 },
+  'THC-COOH 1': { peakArea: 1000, retentionTime: 5 }
 };
 
-let establishedMeans = loadEstablishedMeans();
-
-function loadEstablishedMeans() {
-  const storedMeans = localStorage.getItem('establishedMeans');
-  return storedMeans ? JSON.parse(storedMeans) : defaultEstablishedMeans;
-}
-
-function saveEstablishedMeans() {
-  const updatedMeans = {};
-
-  for (const analyte in establishedMeans) {
-    if (establishedMeans.hasOwnProperty(analyte)) {
-      const peakArea = parseFloat(document.getElementById(`peakArea_${analyte}`).value);
-      const retentionTime = parseFloat(document.getElementById(`retentionTime_${analyte}`).value);
-      updatedMeans[analyte] = { peakArea, retentionTime };
-    }
-  }
-
-  establishedMeans = updatedMeans;
-  localStorage.setItem('establishedMeans', JSON.stringify(establishedMeans));
-  console.log('Updated Established Means:', establishedMeans);
-  displayEstablishedMeans(); // Refresh the display with updated values
-  alert('Established means have been saved successfully!'); // Display alert
-}
+let establishedMeans = { ...defaultEstablishedMeans }; // Initialize with default values
 
 function displayEstablishedMeans() {
   const container = document.getElementById('establishedMeansContainer');
   container.innerHTML = '';
 
-  for (const analyte in establishedMeans) {
-    if (establishedMeans.hasOwnProperty(analyte)) {
-      const { peakArea, retentionTime } = establishedMeans[analyte];
+  for (const analyte in defaultEstablishedMeans) {
+    if (defaultEstablishedMeans.hasOwnProperty(analyte)) {
+      const { peakArea, retentionTime } = defaultEstablishedMeans[analyte];
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('established-means-item');
       analyteDiv.innerHTML = `
@@ -83,31 +92,26 @@ function displayEstablishedMeans() {
 // Initialize established means display
 displayEstablishedMeans();
 
-document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
+function saveEstablishedMeans() {
+  const updatedMeans = {};
 
-let selectedInstrument = document.getElementById('lcms').value; // Initialize with default selected value
+  for (const analyte in defaultEstablishedMeans) {
+    if (defaultEstablishedMeans.hasOwnProperty(analyte)) {
+      const peakArea = parseFloat(document.getElementById(`peakArea_${analyte}`).value);
+      const retentionTime = parseFloat(document.getElementById(`retentionTime_${analyte}`).value);
+      updatedMeans[analyte] = { peakArea, retentionTime };
+    }
+  }
 
-document.getElementById('lcms').addEventListener('change', (event) => {
-  selectedInstrument = event.target.value;
-  console.log('Selected Instrument:', selectedInstrument); // Debug
-});
-
-document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
-
-document.getElementById('resetBtn').addEventListener('click', function () {
-  document.getElementById('lcms').selectedIndex = 0; // Reset LCMS selection
-  document.getElementById('fileUpload').value = ''; // Clear file upload field
-  document.getElementById('result').innerHTML = ''; // Clear result display
-  document.getElementById('search').value = ''; // Clear search input
-  clearPreviousRuns(); // Clear previous runs display
-});
-
-function clearPreviousRuns() {
-  const previousRunsDiv = document.getElementById('previousRuns');
-  previousRunsDiv.innerHTML = ''; // Clear previous runs display
+  establishedMeans = { ...updatedMeans };
+  localStorage.setItem('establishedMeans', JSON.stringify(establishedMeans));
+  console.log('Updated Established Means:', establishedMeans);
+  alert('Established means have been saved successfully!');
 }
 
 function analyzeData() {
+  console.log('Analyze Data button clicked'); // Debug line
+
   const fileInput = document.getElementById('fileUpload');
   if (fileInput.files.length === 0) {
     alert('Please upload a CSV file.');
@@ -116,37 +120,56 @@ function analyzeData() {
 
   const reader = new FileReader();
   reader.onload = function (event) {
+    console.log('File read successfully'); // Debug line
+
     const csvData = event.target.result;
+    if (!csvData) {
+      console.error('CSV data is empty or not read properly.');
+      return;
+    }
+
     const rows = csvData.split('\n').slice(1); // Skip header row
+    if (rows.length === 0) {
+      console.error('No data found in CSV file.');
+      return;
+    }
 
     let passCount = 0;
     let failCount = 0;
-
     const results = [];
 
     rows.forEach(row => {
+      if (row.trim() === '') return; // Skip empty rows
+
       const [analyte, peakArea, retentionTime] = row.split(',').map(item => item.trim());
+      if (!analyte || isNaN(peakArea) || isNaN(retentionTime)) {
+        console.error(`Invalid row data: ${row}`);
+        return;
+      }
+
       const meanValues = establishedMeans[analyte];
+      if (!meanValues) {
+        console.warn(`No established mean found for analyte: ${analyte}`);
+        return;
+      }
 
-      if (meanValues) {
-        const peakAreaPass = parseFloat(peakArea) >= meanValues.peakArea;
-        const retentionTimePass = parseFloat(retentionTime) >= meanValues.retentionTime;
+      const peakAreaPass = parseFloat(peakArea) >= meanValues.peakArea;
+      const retentionTimePass = parseFloat(retentionTime) >= meanValues.retentionTime;
 
-        const analyteResult = {
-          analyte: analyte,
-          peakArea: parseFloat(peakArea),
-          retentionTime: parseFloat(retentionTime),
-          peakAreaPass: peakAreaPass,
-          retentionTimePass: retentionTimePass
-        };
+      const analyteResult = {
+        analyte: analyte,
+        peakArea: parseFloat(peakArea),
+        retentionTime: parseFloat(retentionTime),
+        peakAreaPass: peakAreaPass,
+        retentionTimePass: retentionTimePass
+      };
 
-        results.push(analyteResult);
+      results.push(analyteResult);
 
-        if (peakAreaPass && retentionTimePass) {
-          passCount++;
-        } else {
-          failCount++;
-        }
+      if (peakAreaPass && retentionTimePass) {
+        passCount++;
+      } else {
+        failCount++;
       }
     });
 
@@ -154,7 +177,7 @@ function analyzeData() {
     resultDiv.innerHTML = ''; // Clear previous results
 
     // Display overall result at the top
-    const runResult = passCount >= 2 ? 'PASS' : 'FAIL';
+    const runResult = passCount >= Object.keys(defaultEstablishedMeans).length / 2 ? 'PASS' : 'FAIL';
     resultDiv.innerHTML = `<h2>Overall Result: ${runResult}</h2>`;
 
     // Display individual analyte results
@@ -170,12 +193,19 @@ function analyzeData() {
       resultDiv.appendChild(analyteDiv);
     });
 
-    // Save the run data
+    // Ensure 'selectedInstrument' is defined
+    const selectedInstrument = document.getElementById('lcms').value;
     saveRun(selectedInstrument, runResult, csvData);
+  };
+
+  reader.onerror = function (error) {
+    console.error('Error reading file:', error);
   };
 
   reader.readAsText(fileInput.files[0]);
 }
+
+
 
 function saveRun(instrument, result, data) {
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
@@ -215,3 +245,22 @@ document.getElementById('search').addEventListener('keypress', function (event) 
     searchRuns();
   }
 });
+
+document.getElementById('analyzeBtn').addEventListener('click', analyzeData); // Make sure to add this line
+
+function resetForm() {
+  // Reset the file input
+  document.getElementById('fileUpload').value = '';
+
+  // Reset the instrument selection to default
+  document.getElementById('lcms').selectedIndex = 0;
+
+  // Clear results
+  document.getElementById('result').innerHTML = '';
+
+  // Re-display the default established means
+  displayEstablishedMeans();
+}
+
+// Add event listener for the reset button
+document.getElementById('resetBtn').addEventListener('click', resetForm);
