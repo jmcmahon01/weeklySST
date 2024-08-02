@@ -67,15 +67,15 @@ const defaultEstablishedMeans = {
   'THC-COOH 1': { peakArea: 1000, retentionTime: 5 }
 };
 
-let establishedMeans = { ...defaultEstablishedMeans }; // Initialize with default values
+let establishedMeans = JSON.parse(localStorage.getItem('establishedMeans')) || { ...defaultEstablishedMeans };
 
 function displayEstablishedMeans() {
   const container = document.getElementById('establishedMeansContainer');
   container.innerHTML = '';
 
-  for (const analyte in defaultEstablishedMeans) {
-    if (defaultEstablishedMeans.hasOwnProperty(analyte)) {
-      const { peakArea, retentionTime } = defaultEstablishedMeans[analyte];
+  for (const analyte in establishedMeans) {
+    if (establishedMeans.hasOwnProperty(analyte)) {
+      const { peakArea, retentionTime } = establishedMeans[analyte];
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('established-means-item');
       analyteDiv.innerHTML = `
@@ -90,13 +90,13 @@ function displayEstablishedMeans() {
 }
 
 // Initialize established means display
-displayEstablishedMeans();
+document.addEventListener('DOMContentLoaded', displayEstablishedMeans);
 
 function saveEstablishedMeans() {
   const updatedMeans = {};
 
-  for (const analyte in defaultEstablishedMeans) {
-    if (defaultEstablishedMeans.hasOwnProperty(analyte)) {
+  for (const analyte in establishedMeans) {
+    if (establishedMeans.hasOwnProperty(analyte)) {
       const peakArea = parseFloat(document.getElementById(`peakArea_${analyte}`).value);
       const retentionTime = parseFloat(document.getElementById(`retentionTime_${analyte}`).value);
       updatedMeans[analyte] = { peakArea, retentionTime };
@@ -109,31 +109,16 @@ function saveEstablishedMeans() {
   alert('Established means have been saved successfully!');
 }
 
+// Add the event listener to the Save button
+document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
+
 function analyzeData() {
-  console.log('Analyze Data button clicked'); // Debug line
-
   const fileInput = document.getElementById('fileUpload');
-  if (fileInput.files.length === 0) {
-    alert('Please upload a CSV file.');
-    return;
-  }
-
   const reader = new FileReader();
+
   reader.onload = function (event) {
-    console.log('File read successfully'); // Debug line
-
     const csvData = event.target.result;
-    if (!csvData) {
-      console.error('CSV data is empty or not read properly.');
-      return;
-    }
-
     const rows = csvData.split('\n').slice(1); // Skip header row
-    if (rows.length === 0) {
-      console.error('No data found in CSV file.');
-      return;
-    }
-
     let passCount = 0;
     let failCount = 0;
     const results = [];
@@ -142,16 +127,10 @@ function analyzeData() {
       if (row.trim() === '') return; // Skip empty rows
 
       const [analyte, peakArea, retentionTime] = row.split(',').map(item => item.trim());
-      if (!analyte || isNaN(peakArea) || isNaN(retentionTime)) {
-        console.error(`Invalid row data: ${row}`);
-        return;
-      }
+      if (!analyte || isNaN(peakArea) || isNaN(retentionTime)) return;
 
       const meanValues = establishedMeans[analyte];
-      if (!meanValues) {
-        console.warn(`No established mean found for analyte: ${analyte}`);
-        return;
-      }
+      if (!meanValues) return;
 
       const peakAreaPass = parseFloat(peakArea) >= meanValues.peakArea;
       const retentionTimePass = parseFloat(retentionTime) >= meanValues.retentionTime;
@@ -176,11 +155,9 @@ function analyzeData() {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = ''; // Clear previous results
 
-    // Display overall result at the top
     const runResult = passCount >= Object.keys(defaultEstablishedMeans).length / 2 ? 'PASS' : 'FAIL';
     resultDiv.innerHTML = `<h2>Overall Result: ${runResult}</h2>`;
 
-    // Display individual analyte results
     results.forEach(result => {
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('analyte-result');
@@ -193,7 +170,6 @@ function analyzeData() {
       resultDiv.appendChild(analyteDiv);
     });
 
-    // Ensure 'selectedInstrument' is defined
     const selectedInstrument = document.getElementById('lcms').value;
     saveRun(selectedInstrument, runResult, csvData);
   };
@@ -204,8 +180,6 @@ function analyzeData() {
 
   reader.readAsText(fileInput.files[0]);
 }
-
-
 
 function saveRun(instrument, result, data) {
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
@@ -232,11 +206,22 @@ function searchRuns() {
   }
 
   const filteredRuns = previousRuns.filter(run => {
-    if (typeof run.instrument !== 'string' || typeof run.result !== 'string') {
-      console.warn('Run is missing instrument or result or they are not strings:', run);
+    // Log run to see its structure
+    console.log('Checking run:', run); // Debug line
+
+    // Ensure 'instrument' and 'result' are strings
+    const instrumentValid = typeof run.instrument === 'string';
+    const resultValid = typeof run.result === 'string';
+
+    if (!instrumentValid || !resultValid) {
+      console.warn('Invalid run format:', run);
       return false;
     }
-    return run.instrument.toLowerCase().includes(query) || run.result.toLowerCase().includes(query);
+
+    return (
+      run.instrument.toLowerCase().includes(query) ||
+      run.result.toLowerCase().includes(query)
+    );
   });
 
   console.log('Filtered Runs:', filteredRuns); // Debug line
@@ -268,19 +253,17 @@ document.getElementById('search').addEventListener('keypress', function (event) 
   }
 });
 
-document.getElementById('analyzeBtn').addEventListener('click', analyzeData); // Make sure to add this line
+document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
 
 function resetForm() {
   document.getElementById('lcms').value = '';
   document.getElementById('fileUpload').value = '';
   document.getElementById('search').value = '';
-  document.getElementById('result').innerHTML = ''; // Clear analyze data results
-  document.getElementById('previousRuns').innerHTML = ''; // Clear search previous runs results
+  document.getElementById('result').innerHTML = '';
+  document.getElementById('previousRuns').innerHTML = '';
 
-  // Reset established means to default
   establishedMeans = { ...defaultEstablishedMeans };
   displayEstablishedMeans();
 }
 
-// Event listener for reset button
 document.getElementById('resetBtn').addEventListener('click', resetForm);
