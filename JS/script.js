@@ -216,27 +216,49 @@ function saveRun(instrument, result, data) {
 function searchRuns() {
   const searchInput = document.getElementById('search');
   if (!searchInput) {
+    console.error('Search input element not found');
     return;
   }
 
   const query = searchInput.value.toLowerCase();
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
-  const filteredRuns = previousRuns.filter(run => run.instrument.toLowerCase().includes(query) || run.result.toLowerCase().includes(query));
+
+  console.log('Previous Runs:', previousRuns); // Debug line
+  console.log('Search Query:', query); // Debug line
+
+  if (!Array.isArray(previousRuns)) {
+    console.error('previousRuns is not an array');
+    return;
+  }
+
+  const filteredRuns = previousRuns.filter(run => {
+    if (typeof run.instrument !== 'string' || typeof run.result !== 'string') {
+      console.warn('Run is missing instrument or result or they are not strings:', run);
+      return false;
+    }
+    return run.instrument.toLowerCase().includes(query) || run.result.toLowerCase().includes(query);
+  });
+
+  console.log('Filtered Runs:', filteredRuns); // Debug line
 
   const previousRunsDiv = document.getElementById('previousRuns');
   previousRunsDiv.innerHTML = ''; // Clear previous runs display
 
-  filteredRuns.forEach(run => {
-    const runDiv = document.createElement('div');
-    runDiv.classList.add('run-result');
-    runDiv.innerHTML = `
-      <p>Instrument: ${run.instrument}</p>
-      <p>Result: ${run.result}</p>
-      <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
-      <hr>
-    `;
-    previousRunsDiv.appendChild(runDiv);
-  });
+  if (filteredRuns.length === 0) {
+    previousRunsDiv.innerHTML = '<p>No matching runs found.</p>';
+  } else {
+    filteredRuns.forEach(run => {
+      const runDiv = document.createElement('div');
+      runDiv.classList.add('run-result');
+      runDiv.innerHTML = `
+        <p>Instrument: ${run.instrument}</p>
+        <p>Result: ${run.result}</p>
+        <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
+        <hr>
+      `;
+      previousRunsDiv.appendChild(runDiv);
+    });
+  }
 }
 
 document.getElementById('searchBtn').addEventListener('click', searchRuns);
@@ -249,18 +271,16 @@ document.getElementById('search').addEventListener('keypress', function (event) 
 document.getElementById('analyzeBtn').addEventListener('click', analyzeData); // Make sure to add this line
 
 function resetForm() {
-  // Reset the file input
+  document.getElementById('lcms').value = '';
   document.getElementById('fileUpload').value = '';
+  document.getElementById('search').value = '';
+  document.getElementById('result').innerHTML = ''; // Clear analyze data results
+  document.getElementById('previousRuns').innerHTML = ''; // Clear search previous runs results
 
-  // Reset the instrument selection to default
-  document.getElementById('lcms').selectedIndex = 0;
-
-  // Clear results
-  document.getElementById('result').innerHTML = '';
-
-  // Re-display the default established means
+  // Reset established means to default
+  establishedMeans = { ...defaultEstablishedMeans };
   displayEstablishedMeans();
 }
 
-// Add event listener for the reset button
+// Event listener for reset button
 document.getElementById('resetBtn').addEventListener('click', resetForm);
