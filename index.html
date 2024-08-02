@@ -2,42 +2,42 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weekly SST checks (P2)</title>
-  <link rel="stylesheet" href="CSS/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly SST checks (P2)</title>
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
 
 <body>
-  <div class="container">
-    <h1>LCMS Analyzer</h1>
-    <div>
-      <label for="lcms">Select LCMS Instrument:</label>
-      <select id="lcms">
-        <option value="LCMS 2">LCMS 2</option>
-        <option value="LCMS 5">LCMS 5</option>
-        <option value="LCMS 6">LCMS 6</option>
-        <option value="LCMS 7">LCMS 7</option>
-      </select>
-    </div>
-    <div>
-      <label for="fileUpload">Upload CSV file:</label>
-      <input type="file" id="fileUpload" accept=".csv">
-    </div>
-    <button id="analyzeBtn">Analyze Data</button>
-    <button id="resetBtn">Reset Form</button>
-    <div id="result"></div>
+    <div class="container">
+        <h1>Weekly SST Checks</h1>
+        <div>
+            <label for="lcms">Select LCMS Instrument for P2:</label>
+            <select id="lcms">
+                <option value="LCMS 2">LCMS 2</option>
+                <option value="LCMS 5">LCMS 5</option>
+                <option value="LCMS 6">LCMS 6</option>
+                <option value="LCMS 7">LCMS 7</option>
+            </select>
+        </div>
+        <div>
+            <label for="fileUpload">Upload CSV file:</label>
+            <input type="file" id="fileUpload" accept=".csv">
+        </div>
+        <button id="analyzeBtn">Analyze Data</button>
+        <button id="resetBtn">Reset Form</button>
+        <div id="result"></div>
 
-    <h2>Previous Runs</h2>
-    <input type="text" id="search" placeholder="Search by LCMS instrument...">
-    <button id="searchBtn">Search</button>
-    <div id="previousRuns"></div>
+        <h2>Previous Runs</h2>
+        <input type="text" id="search" placeholder="Search by LCMS instrument...">
+        <button id="searchBtn">Search</button>
+        <div id="previousRuns"></div>
 
-    <h2>Manage Established Means</h2>
-    <div id="establishedMeansContainer"></div>
-    <button id="saveMeansBtn">Save Changes</button>
-  </div>
-  <script src="JS/script.js"></script>
+        <h2>Manage Established Means</h2>
+        <div id="establishedMeansContainer"></div>
+        <button id="saveMeansBtn">Save Changes</button>
+    </div>
+    <script src="JS/script.js"></script>
 </body>
 
 </html>
