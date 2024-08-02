@@ -135,3 +135,22 @@ button:hover {
 input::placeholder {
   color: #999;
 }
+.collapsed {
+  display: none;
+}
+
+.expanded {
+  display: block;
+}
+
+/* Add styles for the toggle button */
+#toggleMeansBtn {
+  display: block;
+  margin: 10px auto;
+  background-color: #f0ad4e;
+  color: white;
+}
+
+#toggleMeansBtn:hover {
+  background-color: #ec971f;
+}

@@ -92,6 +92,25 @@ function displayEstablishedMeans() {
 // Initialize established means display
 document.addEventListener('DOMContentLoaded', displayEstablishedMeans);
 
+
+// Initially hide established means section
+const meansContainer = document.getElementById('establishedMeansContainer');
+const toggleButton = document.getElementById('toggleMeansBtn');
+
+// Check if button exists
+if (toggleButton) {
+  toggleButton.addEventListener('click', function () {
+    if (meansContainer.style.display === 'none') {
+      meansContainer.style.display = 'block';
+      toggleButton.textContent = 'Hide Established Means';
+    } else {
+      meansContainer.style.display = 'none';
+      toggleButton.textContent = 'Show Established Means';
+    }
+  });
+}
+
+
 function saveEstablishedMeans() {
   const updatedMeans = {};
 
@@ -111,6 +130,7 @@ function saveEstablishedMeans() {
 
 // Add the event listener to the Save button
 document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
+
 
 function analyzeData() {
   const fileInput = document.getElementById('fileUpload');
@@ -162,11 +182,11 @@ function analyzeData() {
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('analyte-result');
       analyteDiv.innerHTML = `
-        <h3>${result.analyte}</h3>
-        <p>Peak Area: ${result.peakArea} (${result.peakAreaPass ? 'Pass' : 'Fail'})</p>
-        <p>Retention Time: ${result.retentionTime} (${result.retentionTimePass ? 'Pass' : 'Fail'})</p>
-        <hr>
-      `;
+          <h3>${result.analyte}</h3>
+          <p>Peak Area: ${result.peakArea} (${result.peakAreaPass ? 'Pass' : 'Fail'})</p>
+          <p>Retention Time: ${result.retentionTime} (${result.retentionTimePass ? 'Pass' : 'Fail'})</p>
+          <hr>
+        `;
       resultDiv.appendChild(analyteDiv);
     });
 
@@ -236,11 +256,11 @@ function searchRuns() {
       const runDiv = document.createElement('div');
       runDiv.classList.add('run-result');
       runDiv.innerHTML = `
-        <p>Instrument: ${run.instrument}</p>
-        <p>Result: ${run.result}</p>
-        <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
-        <hr>
-      `;
+          <p>Instrument: ${run.instrument}</p>
+          <p>Result: ${run.result}</p>
+          <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
+          <hr>
+        `;
       previousRunsDiv.appendChild(runDiv);
     });
   }
