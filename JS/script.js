@@ -256,14 +256,16 @@ document.getElementById('search').addEventListener('keypress', function (event) 
 document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
 
 function resetForm() {
-  document.getElementById('lcms').value = '';
-  document.getElementById('fileUpload').value = '';
-  document.getElementById('search').value = '';
-  document.getElementById('result').innerHTML = '';
-  document.getElementById('previousRuns').innerHTML = '';
+  document.getElementById('lcms').value = ''; // Clear instrument selection
+  document.getElementById('fileUpload').value = ''; // Clear file input
+  document.getElementById('search').value = ''; // Clear search input
+  document.getElementById('result').innerHTML = ''; // Clear analyze data results
+  document.getElementById('previousRuns').innerHTML = ''; // Clear search previous runs results
 
-  establishedMeans = { ...defaultEstablishedMeans };
-  displayEstablishedMeans();
+  // Do not reset established means to default
+  // establishedMeans = { ...defaultEstablishedMeans }; // Comment out this line
+  displayEstablishedMeans(); // Re-display the current established means
 }
 
+// Event listener for reset button
 document.getElementById('resetBtn').addEventListener('click', resetForm);
