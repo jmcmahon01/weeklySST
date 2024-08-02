@@ -39,7 +39,7 @@ Or access application in web browser at:
 https://jmcmahon01.github.io/weeklySST
 
 ## Known Bugs
-* No known bugs at this time 
+* Have to double click the established means collapsible container once page initially loads in order to view them. Button works correctly after initial click 
 
 
 
