@@ -39,8 +39,8 @@ Or access application in web browser at:
 https://jmcmahon01.github.io/weeklySST
 
 ## Known Bugs
-* The search previous runs is no longer working with the new csv/updated list of analytes. 
-* The save button to save changes to established means no longer works with new csv/list of full analytes. 
+* No known bugs at this time 
+
 
 
 ## License
