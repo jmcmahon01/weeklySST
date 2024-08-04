@@ -267,7 +267,7 @@ function toggleEstablishedMeans() {
   const meansContainer = document.getElementById('establishedMeansContainer');
   const toggleButton = document.getElementById('toggleMeansBtn');
   
-  if (meansContainer.style.display === 'none') {
+  if (meansContainer.style.display === 'none' || !meansContainer.style.display) {
     meansContainer.style.display = 'block';
     toggleButton.textContent = 'Hide Established Means';
   } else {
@@ -276,26 +276,31 @@ function toggleEstablishedMeans() {
   }
 }
 
-// Initialize established means display
-document.addEventListener('DOMContentLoaded', displayEstablishedMeans);
+// Initialize established means display and event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  displayEstablishedMeans();
 
-// Initially hide established means section
-const meansContainer = document.getElementById('establishedMeansContainer');
-const toggleButton = document.getElementById('toggleMeansBtn');
+  // Initially hide established means section
+  const meansContainer = document.getElementById('establishedMeansContainer');
+  const toggleButton = document.getElementById('toggleMeansBtn');
 
-// Check if button exists
-if (toggleButton) {
-  toggleButton.addEventListener('click', toggleEstablishedMeans);
-}
-
-document.getElementById('searchBtn').addEventListener('click', searchRuns);
-document.getElementById('search').addEventListener('keypress', function (event) {
-  if (event.key === 'Enter') {
-    searchRuns();
+  // Ensure initial display state
+  if (meansContainer) {
+    meansContainer.style.display = 'none'; // Or 'block' based on initial state
   }
+
+  // Check if button exists
+  if (toggleButton) {
+    toggleButton.addEventListener('click', toggleEstablishedMeans);
+  }
+  
+  // Add event listeners for other buttons
+  document.getElementById('searchBtn').addEventListener('click', searchRuns);
+  document.getElementById('search').addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      searchRuns();
+    }
+  });
+  document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
+  document.getElementById('resetBtn').addEventListener('click', resetForm);
 });
-
-document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
-
-// Event listener for reset button
-document.getElementById('resetBtn').addEventListener('click', resetForm);
