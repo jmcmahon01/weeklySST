@@ -1,3 +1,4 @@
+//Business Logic
 const defaultEstablishedMeans = {
   '6-MAM 1': { peakArea: 1000, retentionTime: 5 },
   'Alprazolam 1': { peakArea: 1000, retentionTime: 5 },
@@ -69,48 +70,6 @@ const defaultEstablishedMeans = {
 
 let establishedMeans = JSON.parse(localStorage.getItem('establishedMeans')) || { ...defaultEstablishedMeans };
 
-function displayEstablishedMeans() {
-  const container = document.getElementById('establishedMeansContainer');
-  container.innerHTML = '';
-
-  for (const analyte in establishedMeans) {
-    if (establishedMeans.hasOwnProperty(analyte)) {
-      const { peakArea, retentionTime } = establishedMeans[analyte];
-      const analyteDiv = document.createElement('div');
-      analyteDiv.classList.add('established-means-item');
-      analyteDiv.innerHTML = `
-        <label for="peakArea_${analyte}">${analyte} Peak Area:</label>
-        <input type="number" id="peakArea_${analyte}" value="${peakArea}">
-        <label for="retentionTime_${analyte}">${analyte} Retention Time:</label>
-        <input type="number" id="retentionTime_${analyte}" value="${retentionTime}">
-      `;
-      container.appendChild(analyteDiv);
-    }
-  }
-}
-
-// Initialize established means display
-document.addEventListener('DOMContentLoaded', displayEstablishedMeans);
-
-
-// Initially hide established means section
-const meansContainer = document.getElementById('establishedMeansContainer');
-const toggleButton = document.getElementById('toggleMeansBtn');
-
-// Check if button exists
-if (toggleButton) {
-  toggleButton.addEventListener('click', function () {
-    if (meansContainer.style.display === 'none') {
-      meansContainer.style.display = 'block';
-      toggleButton.textContent = 'Hide Established Means';
-    } else {
-      meansContainer.style.display = 'none';
-      toggleButton.textContent = 'Show Established Means';
-    }
-  });
-}
-
-
 function saveEstablishedMeans() {
   const updatedMeans = {};
 
@@ -127,10 +86,6 @@ function saveEstablishedMeans() {
   console.log('Updated Established Means:', establishedMeans);
   alert('Established means have been saved successfully!');
 }
-
-// Add the event listener to the Save button
-document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
-
 
 function analyzeData() {
   const fileInput = document.getElementById('fileUpload');
@@ -217,19 +172,12 @@ function searchRuns() {
   const query = searchInput.value.toLowerCase();
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
 
-  console.log('Previous Runs:', previousRuns); // Debug line
-  console.log('Search Query:', query); // Debug line
-
   if (!Array.isArray(previousRuns)) {
     console.error('previousRuns is not an array');
     return;
   }
 
   const filteredRuns = previousRuns.filter(run => {
-    // Log run to see its structure
-    console.log('Checking run:', run); // Debug line
-
-    // Ensure 'instrument' and 'result' are strings
     const instrumentValid = typeof run.instrument === 'string';
     const resultValid = typeof run.result === 'string';
 
@@ -243,8 +191,6 @@ function searchRuns() {
       run.result.toLowerCase().includes(query)
     );
   });
-
-  console.log('Filtered Runs:', filteredRuns); // Debug line
 
   const previousRunsDiv = document.getElementById('previousRuns');
   previousRunsDiv.innerHTML = ''; // Clear previous runs display
@@ -266,15 +212,6 @@ function searchRuns() {
   }
 }
 
-document.getElementById('searchBtn').addEventListener('click', searchRuns);
-document.getElementById('search').addEventListener('keypress', function (event) {
-  if (event.key === 'Enter') {
-    searchRuns();
-  }
-});
-
-document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
-
 function resetForm() {
   document.getElementById('lcms').value = ''; // Clear instrument selection
   document.getElementById('fileUpload').value = ''; // Clear file input
@@ -283,9 +220,63 @@ function resetForm() {
   document.getElementById('previousRuns').innerHTML = ''; // Clear search previous runs results
 
   // Do not reset established means to default
-  // establishedMeans = { ...defaultEstablishedMeans }; // Comment out this line
   displayEstablishedMeans(); // Re-display the current established means
 }
+
+
+// UI Logic
+
+function displayEstablishedMeans() {
+  const container = document.getElementById('establishedMeansContainer');
+  container.innerHTML = '';
+
+  for (const analyte in establishedMeans) {
+    if (establishedMeans.hasOwnProperty(analyte)) {
+      const { peakArea, retentionTime } = establishedMeans[analyte];
+      const analyteDiv = document.createElement('div');
+      analyteDiv.classList.add('established-means-item');
+      analyteDiv.innerHTML = `
+        <label for="peakArea_${analyte}">${analyte} Peak Area:</label>
+        <input type="number" id="peakArea_${analyte}" value="${peakArea}">
+        <label for="retentionTime_${analyte}">${analyte} Retention Time:</label>
+        <input type="number" id="retentionTime_${analyte}" value="${retentionTime}">
+      `;
+      container.appendChild(analyteDiv);
+    }
+  }
+}
+
+// Initialize established means display
+document.addEventListener('DOMContentLoaded', displayEstablishedMeans);
+
+// Initially hide established means section
+const meansContainer = document.getElementById('establishedMeansContainer');
+const toggleButton = document.getElementById('toggleMeansBtn');
+
+// Check if button exists
+if (toggleButton) {
+  toggleButton.addEventListener('click', function () {
+    if (meansContainer.style.display === 'none') {
+      meansContainer.style.display = 'block';
+      toggleButton.textContent = 'Hide Established Means';
+    } else {
+      meansContainer.style.display = 'none';
+      toggleButton.textContent = 'Show Established Means';
+    }
+  });
+}
+
+// Add the event listener to the Save button
+document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
+
+document.getElementById('searchBtn').addEventListener('click', searchRuns);
+document.getElementById('search').addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    searchRuns();
+  }
+});
+
+document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
 
 // Event listener for reset button
 document.getElementById('resetBtn').addEventListener('click', resetForm);
