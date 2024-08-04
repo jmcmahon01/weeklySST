@@ -244,6 +244,15 @@ function displayEstablishedMeans() {
       container.appendChild(analyteDiv);
     }
   }
+
+  // Add the "Save Changes" button
+  const saveButton = document.createElement('button');
+  saveButton.id = 'saveMeansBtn';
+  saveButton.textContent = 'Save Changes';
+  container.appendChild(saveButton);
+
+  // Attach event listener to the save button
+  saveButton.addEventListener('click', saveEstablishedMeans);
 }
 
 // Initialize established means display
@@ -265,9 +274,6 @@ if (toggleButton) {
     }
   });
 }
-
-// Add the event listener to the Save button
-document.getElementById('saveMeansBtn').addEventListener('click', saveEstablishedMeans);
 
 document.getElementById('searchBtn').addEventListener('click', searchRuns);
 document.getElementById('search').addEventListener('keypress', function (event) {
