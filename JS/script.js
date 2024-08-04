@@ -251,8 +251,29 @@ function displayEstablishedMeans() {
   saveButton.textContent = 'Save Changes';
   container.appendChild(saveButton);
 
+  // Add another "Hide Established Means" button at the bottom
+  const hideButtonBottom = document.createElement('button');
+  hideButtonBottom.id = 'hideMeansBtnBottom';
+  hideButtonBottom.textContent = 'Hide Established Means';
+  container.appendChild(hideButtonBottom);
+
   // Attach event listener to the save button
   saveButton.addEventListener('click', saveEstablishedMeans);
+  hideButtonBottom.addEventListener('click', toggleEstablishedMeans);
+}
+
+// Toggle Established Means Function
+function toggleEstablishedMeans() {
+  const meansContainer = document.getElementById('establishedMeansContainer');
+  const toggleButton = document.getElementById('toggleMeansBtn');
+  
+  if (meansContainer.style.display === 'none') {
+    meansContainer.style.display = 'block';
+    toggleButton.textContent = 'Hide Established Means';
+  } else {
+    meansContainer.style.display = 'none';
+    toggleButton.textContent = 'Show Established Means';
+  }
 }
 
 // Initialize established means display
@@ -264,15 +285,7 @@ const toggleButton = document.getElementById('toggleMeansBtn');
 
 // Check if button exists
 if (toggleButton) {
-  toggleButton.addEventListener('click', function () {
-    if (meansContainer.style.display === 'none') {
-      meansContainer.style.display = 'block';
-      toggleButton.textContent = 'Hide Established Means';
-    } else {
-      meansContainer.style.display = 'none';
-      toggleButton.textContent = 'Show Established Means';
-    }
-  });
+  toggleButton.addEventListener('click', toggleEstablishedMeans);
 }
 
 document.getElementById('searchBtn').addEventListener('click', searchRuns);
