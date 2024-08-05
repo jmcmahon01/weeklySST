@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(160, 191, 247, 0.9);
   /* Semi-transparent background */
   padding: 20px;
   border-radius: 10px;
@@ -47,7 +47,7 @@ button {
 }
 
 button {
-  background-color: #5cb85c;
+  background-color: #c494de;
   color: white;
   border: none;
   cursor: pointer;
@@ -55,7 +55,7 @@ button {
 }
 
 button:hover {
-  background-color: #4cae4c;
+  background-color: #d8aff0;
 }
 
 #result {
@@ -135,6 +135,7 @@ button:hover {
 input::placeholder {
   color: #999;
 }
+
 .collapsed {
   display: none;
 }
@@ -147,10 +148,10 @@ input::placeholder {
 #toggleMeansBtn {
   display: block;
   margin: 10px auto;
-  background-color: #f0ad4e;
+  background-color: #8ea3ed;
   color: white;
 }
 
 #toggleMeansBtn:hover {
-  background-color: #ec971f;
+  background-color: #86cced;
 }

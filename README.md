@@ -39,7 +39,8 @@ Or access application in web browser at:
 https://jmcmahon01.github.io/weeklySST
 
 ## Known Bugs
-* no known bugs at this time
+* please select file error not showing if analyze button is clicked without selecting a file. 
+
 
 
 
