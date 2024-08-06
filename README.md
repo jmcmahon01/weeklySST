@@ -40,6 +40,7 @@ https://jmcmahon01.github.io/weeklySST
 
 ## Known Bugs
 * please select file error not showing if analyze button is clicked without selecting a file. 
+* ISTD means not saving correctly in local storage
 
 
 
