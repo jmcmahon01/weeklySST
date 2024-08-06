@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  background-color: rgba(160, 191, 247, 0.9);
+  background-color: rgba(202, 218, 246, 0.9);
   /* Semi-transparent background */
   padding: 20px;
   border-radius: 10px;
@@ -117,12 +117,12 @@ button:hover {
 #saveMeansBtn {
   display: block;
   margin: 0 auto;
-  background-color: #337ab7;
+  background-color: #206fb4;
   color: white;
 }
 
 #saveMeansBtn:hover {
-  background-color: #286090;
+  background-color: #1d5a8f;
 }
 
 #analyzeBtn,

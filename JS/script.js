@@ -67,6 +67,45 @@ const defaultEstablishedMeans = {
   'Phenobarbital 1': { peakArea: 1000, retentionTime: 5 },
   'THC-COOH 1': { peakArea: 1000, retentionTime: 5 }
 };
+const IstdAnalytes = {
+  IS_6MAM_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Aminoclonazepam_D4: { peakArea: 1000, retentionTime: 5 },
+  IS_Amitriptyline_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Amphetamine_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Benzoylecogonine_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Bupropion_D9: { peakArea: 1000, retentionTime: 5 },
+  IS_Buspirone_D8: { peakArea: 1000, retentionTime: 5 },
+  IS_Codeine_D6: { peakArea: 1000, retentionTime: 5 },
+  IS_Cotinine_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Cyclobenzaprine_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Desipramine_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Desmethyldoxepin_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Diazepam_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Fentanyl_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Fluoxetine_D6: { peakArea: 1000, retentionTime: 5 },
+  IS_Hydrcodone_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Hydromorphone_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Hydroxybupropion_D6: { peakArea: 1000, retentionTime: 5 },
+  IS_Ketamine_D4: { peakArea: 1000, retentionTime: 5 },
+  IS_Meperidine_D4: { peakArea: 1000, retentionTime: 5 },
+  IS_Methadone_D3: { peakArea: 1000, retentionTime: 5 },
+  IS_Methamphetamine_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Methylphenidate_D9: { peakArea: 1000, retentionTime: 5 },
+  IS_Morphine_D6: { peakArea: 1000, retentionTime: 5 },
+  IS_Nordiazepam_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Norketamine_D4: { peakArea: 1000, retentionTime: 5 },
+  IS_Normeperidine_D4: { peakArea: 1000, retentionTime: 5 },
+  IS_Oxycodone_D6: { peakArea: 1000, retentionTime: 5 },
+  IS_Phencyclidine_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Propoxyphene_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Ritalinic_Acid_D10: { peakArea: 1000, retentionTime: 5 },
+  IS_Zaleplon_D4: { peakArea: 1000, retentionTime: 5 },
+  IS_Zolpidem_D7: { peakArea: 1000, retentionTime: 5 },
+  IS_Butalbital_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Pentobarbital_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_Phenobarbital_D5: { peakArea: 1000, retentionTime: 5 },
+  IS_THC_CO_OH_D3: { peakArea: 1000, retentionTime: 5 },
+};
 
 let establishedMeans = JSON.parse(localStorage.getItem('establishedMeans')) || { ...defaultEstablishedMeans };
 
@@ -87,6 +126,75 @@ function saveEstablishedMeans() {
   alert('Established means have been saved successfully!');
 }
 
+// Function to display ISTD analytes
+function displayIstdAnalytes() {
+  const container = document.getElementById('istdContainer');
+  container.innerHTML = '';
+
+  for (const analyte in IstdAnalytes) {
+    if (IstdAnalytes.hasOwnProperty(analyte)) {
+      const { peakArea, retentionTime } = IstdAnalytes[analyte];
+      const analyteDiv = document.createElement('div');
+      analyteDiv.classList.add('istd-analyte-item');
+      analyteDiv.innerHTML = `
+        <label for="istdPeakArea_${analyte}">${analyte} Peak Area:</label>
+        <input type="number" id="istdPeakArea_${analyte}" value="${peakArea}">
+        <label for="istdRetentionTime_${analyte}">${analyte} Retention Time:</label>
+        <input type="number" id="istdRetentionTime_${analyte}" value="${retentionTime}">
+      `;
+      container.appendChild(analyteDiv);
+    }
+  }
+
+  // Add the "Save Changes" button
+  const saveButton = document.createElement('button');
+  saveButton.id = 'saveISTDBtn';
+  saveButton.textContent = 'Save Changes';
+  container.appendChild(saveButton);
+
+  // Add another "Hide ISTD Analytes" button at the bottom
+  const hideButtonBottom = document.createElement('button');
+  hideButtonBottom.id = 'hideISTDBtnBottom';
+  hideButtonBottom.textContent = 'Hide ISTD Analytes';
+  container.appendChild(hideButtonBottom);
+
+  // Attach event listener to the save button
+  saveButton.addEventListener('click', saveISTDAnalytes);
+  hideButtonBottom.addEventListener('click', toggleISTDAnalytes);
+}
+
+// Function to save ISTD analytes
+function saveISTDAnalytes() {
+  const updatedISTD = {};
+
+  for (const analyte in IstdAnalytes) {
+    if (IstdAnalytes.hasOwnProperty(analyte)) {
+      const peakArea = parseFloat(document.getElementById(`istdPeakArea_${analyte}`).value);
+      const retentionTime = parseFloat(document.getElementById(`istdRetentionTime_${analyte}`).value);
+      updatedISTD[analyte] = { peakArea, retentionTime };
+    }
+  }
+
+  // use localStorage or another method to save updated ISTD analytes
+  console.log('Updated ISTD Analytes:', updatedISTD);
+  alert('ISTD analytes have been saved successfully!');
+}
+
+// Function to toggle ISTD analytes display
+function toggleISTDAnalytes() {
+  const istDContainer = document.getElementById('istdContainer');
+  const toggleButton = document.getElementById('toggleISTDBtn');
+
+  if (istDContainer.style.display === 'none' || !istDContainer.style.display) {
+    istDContainer.style.display = 'block';
+    toggleButton.textContent = 'Hide ISTD Analytes';
+  } else {
+    istDContainer.style.display = 'none';
+    toggleButton.textContent = 'Show ISTD Analytes';
+  }
+}
+
+
 function analyzeData() {
   const fileInput = document.getElementById('fileUpload');
   const reader = new FileReader();
@@ -104,7 +212,7 @@ function analyzeData() {
       const [analyte, peakArea, retentionTime] = row.split(',').map(item => item.trim());
       if (!analyte || isNaN(peakArea) || isNaN(retentionTime)) return;
 
-      const meanValues = establishedMeans[analyte];
+      let meanValues = establishedMeans[analyte] || IstdAnalytes[analyte];
       if (!meanValues) return;
 
       const peakAreaPass = parseFloat(peakArea) >= meanValues.peakArea;
@@ -266,7 +374,7 @@ function displayEstablishedMeans() {
 function toggleEstablishedMeans() {
   const meansContainer = document.getElementById('establishedMeansContainer');
   const toggleButton = document.getElementById('toggleMeansBtn');
-  
+
   if (meansContainer.style.display === 'none' || !meansContainer.style.display) {
     meansContainer.style.display = 'block';
     toggleButton.textContent = 'Hide Established Means';
@@ -276,25 +384,32 @@ function toggleEstablishedMeans() {
   }
 }
 
-// Initialize established means display and event listeners
+// Initialize ISTD analytes display and event listeners
 document.addEventListener('DOMContentLoaded', () => {
   displayEstablishedMeans();
+  displayIstdAnalytes();
 
-  // Initially hide established means section
   const meansContainer = document.getElementById('establishedMeansContainer');
-  const toggleButton = document.getElementById('toggleMeansBtn');
+  const toggleMeansButton = document.getElementById('toggleMeansBtn');
+  const istDContainer = document.getElementById('istdContainer');
+  const toggleISTDButton = document.getElementById('toggleISTDBtn');
 
-  // Ensure initial display state
   if (meansContainer) {
     meansContainer.style.display = 'none'; // Or 'block' based on initial state
   }
 
-  // Check if button exists
-  if (toggleButton) {
-    toggleButton.addEventListener('click', toggleEstablishedMeans);
+  if (toggleMeansButton) {
+    toggleMeansButton.addEventListener('click', toggleEstablishedMeans);
   }
-  
-  // Add event listeners for other buttons
+
+  if (istDContainer) {
+    istDContainer.style.display = 'none'; // Or 'block' based on initial state
+  }
+
+  if (toggleISTDButton) {
+    toggleISTDButton.addEventListener('click', toggleISTDAnalytes);
+  }
+
   document.getElementById('searchBtn').addEventListener('click', searchRuns);
   document.getElementById('search').addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
