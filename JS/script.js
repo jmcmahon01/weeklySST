@@ -126,56 +126,20 @@ function saveEstablishedMeans() {
   alert('Established means have been saved successfully!');
 }
 
-// Function to display ISTD analytes
-function displayIstdAnalytes() {
-  const container = document.getElementById('istdContainer');
-  container.innerHTML = '';
 
-  for (const analyte in IstdAnalytes) {
-    if (IstdAnalytes.hasOwnProperty(analyte)) {
-      const { peakArea, retentionTime } = IstdAnalytes[analyte];
-      const analyteDiv = document.createElement('div');
-      analyteDiv.classList.add('istd-analyte-item');
-      analyteDiv.innerHTML = `
-        <label for="istdPeakArea_${analyte}">${analyte} Peak Area:</label>
-        <input type="number" id="istdPeakArea_${analyte}" value="${peakArea}">
-        <label for="istdRetentionTime_${analyte}">${analyte} Retention Time:</label>
-        <input type="number" id="istdRetentionTime_${analyte}" value="${retentionTime}">
-      `;
-      container.appendChild(analyteDiv);
-    }
-  }
+let istdAnalytes = JSON.parse(localStorage.getItem('istdAnalytes')) || { ...IstdAnalytes };
 
-  // Add the "Save Changes" button
-  const saveButton = document.createElement('button');
-  saveButton.id = 'saveISTDBtn';
-  saveButton.textContent = 'Save Changes';
-  container.appendChild(saveButton);
-
-  // Add the "Hide ISTD Analytes" button at the bottom
-  const hideButtonBottom = document.createElement('button');
-  hideButtonBottom.id = 'hideISTDBtnBottom';
-  hideButtonBottom.textContent = 'Hide ISTD Analytes';
-  container.appendChild(hideButtonBottom);
-
-  // Attach event listeners
-  saveButton.addEventListener('click', saveISTDAnalytes);
-  hideButtonBottom.addEventListener('click', toggleISTDAnalytes);
-}
-
-// Function to save ISTD analytes
 function saveISTDAnalytes() {
   const updatedISTD = {};
 
-  for (const analyte in IstdAnalytes) {
-    if (IstdAnalytes.hasOwnProperty(analyte)) {
+  for (const analyte in istdAnalytes) {
+    if (istdAnalytes.hasOwnProperty(analyte)) {
       const peakArea = parseFloat(document.getElementById(`istdPeakArea_${analyte}`).value);
       const retentionTime = parseFloat(document.getElementById(`istdRetentionTime_${analyte}`).value);
       updatedISTD[analyte] = { peakArea, retentionTime };
     }
   }
-
-  // Save to localStorage
+  istdAnalytes = { ...updatedISTD };
   localStorage.setItem('istdAnalytes', JSON.stringify(updatedISTD));
   console.log('Updated ISTD Analytes:', updatedISTD);
   alert('ISTD analytes have been saved successfully!');
@@ -354,6 +318,7 @@ function displayEstablishedMeans() {
     }
   }
 
+
   // Add the "Save Changes" button
   const saveButton = document.createElement('button');
   saveButton.id = 'saveMeansBtn';
@@ -369,6 +334,42 @@ function displayEstablishedMeans() {
   // Attach event listener to the save button
   saveButton.addEventListener('click', saveEstablishedMeans);
   hideButtonBottom.addEventListener('click', toggleEstablishedMeans);
+}
+// Function to display ISTD analytes
+function displayIstdAnalytes() {
+  const container = document.getElementById('istdContainer');
+  container.innerHTML = '';
+
+  for (const analyte in istdAnalytes) {
+    if (IstdAnalytes.hasOwnProperty(analyte)) {
+      const { peakArea, retentionTime } = IstdAnalytes[analyte];
+      const analyteDiv = document.createElement('div');
+      analyteDiv.classList.add('istd-analyte-item');
+      analyteDiv.innerHTML = `
+        <label for="istdPeakArea_${analyte}">${analyte} Peak Area:</label>
+        <input type="number" id="istdPeakArea_${analyte}" value="${peakArea}">
+        <label for="istdRetentionTime_${analyte}">${analyte} Retention Time:</label>
+        <input type="number" id="istdRetentionTime_${analyte}" value="${retentionTime}">
+      `;
+      container.appendChild(analyteDiv);
+    }
+  }
+
+  // Add the "Save Changes" button
+  const saveButton = document.createElement('button');
+  saveButton.id = 'saveISTDBtn';
+  saveButton.textContent = 'Save Changes';
+  container.appendChild(saveButton);
+
+  // Add the "Hide ISTD Analytes" button at the bottom
+  const hideButtonBottom = document.createElement('button');
+  hideButtonBottom.id = 'hideISTDBtnBottom';
+  hideButtonBottom.textContent = 'Hide ISTD Analytes';
+  container.appendChild(hideButtonBottom);
+
+  // Attach event listeners
+  saveButton.addEventListener('click', saveISTDAnalytes);
+  hideButtonBottom.addEventListener('click', toggleISTDAnalytes);
 }
 
 // Toggle Established Means Function
