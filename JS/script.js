@@ -152,13 +152,13 @@ function displayIstdAnalytes() {
   saveButton.textContent = 'Save Changes';
   container.appendChild(saveButton);
 
-  // Add another "Hide ISTD Analytes" button at the bottom
+  // Add the "Hide ISTD Analytes" button at the bottom
   const hideButtonBottom = document.createElement('button');
   hideButtonBottom.id = 'hideISTDBtnBottom';
   hideButtonBottom.textContent = 'Hide ISTD Analytes';
   container.appendChild(hideButtonBottom);
 
-  // Attach event listener to the save button
+  // Attach event listeners
   saveButton.addEventListener('click', saveISTDAnalytes);
   hideButtonBottom.addEventListener('click', toggleISTDAnalytes);
 }
@@ -175,7 +175,8 @@ function saveISTDAnalytes() {
     }
   }
 
-  // use localStorage or another method to save updated ISTD analytes
+  // Save to localStorage
+  localStorage.setItem('istdAnalytes', JSON.stringify(updatedISTD));
   console.log('Updated ISTD Analytes:', updatedISTD);
   alert('ISTD analytes have been saved successfully!');
 }

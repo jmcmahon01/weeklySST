@@ -102,12 +102,31 @@ button:hover {
   align-items: center;
 }
 
+#istdContainer div {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #establishedMeansContainer label {
   flex: 1;
   margin-right: 10px;
 }
 
+#istdConstainer label {
+  flex: 1;
+  margin-right: 10px;
+}
+
 #establishedMeansContainer input {
+  flex: 2;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#istdContainer input {
   flex: 2;
   padding: 5px;
   margin-left: 10px;
@@ -121,7 +140,18 @@ button:hover {
   color: white;
 }
 
+#saveISTDBtn {
+  display: block;
+  margin: 0 auto;
+  background-color: #206fb4;
+  color: white;
+}
+
 #saveMeansBtn:hover {
+  background-color: #1d5a8f;
+}
+
+#saveISTDBtn:hover {
   background-color: #1d5a8f;
 }
 
@@ -152,6 +182,17 @@ input::placeholder {
   color: white;
 }
 
+#toggleISTDBtn {
+  display: block;
+  margin: 10px auto;
+  background-color: #8ea3ed;
+  color: white;
+}
+
 #toggleMeansBtn:hover {
+  background-color: #86cced;
+}
+
+#toggleISTDBtn:hover {
   background-color: #86cced;
 }
