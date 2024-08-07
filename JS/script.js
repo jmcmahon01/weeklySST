@@ -162,6 +162,11 @@ function toggleISTDAnalytes() {
 
 function analyzeData() {
   const fileInput = document.getElementById('fileUpload');
+  // Check if a file is selected
+  if (!fileInput.files.length) {
+    alert('Please upload a CSV file before analyzing data.');
+    return; // Stop further execution
+  }
   const reader = new FileReader();
 
   reader.onload = function (event) {

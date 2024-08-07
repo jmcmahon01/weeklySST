@@ -47,7 +47,7 @@ button {
 }
 
 button {
-  background-color: #c494de;
+  background-color: #8ea3ed;
   color: white;
   border: none;
   cursor: pointer;
@@ -55,7 +55,7 @@ button {
 }
 
 button:hover {
-  background-color: #d8aff0;
+  background-color: #86cced;
 }
 
 #result {
