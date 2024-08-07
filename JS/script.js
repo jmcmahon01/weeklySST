@@ -218,9 +218,15 @@ function analyzeData() {
   reader.readAsText(fileInput.files[0]);
 }
 
-function saveRun(instrument, result, data) {
+function saveRun(instrument, result, csvData) {
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
-  previousRuns.push({ instrument, result, data, timestamp: new Date().toISOString() });
+  const newRun = {
+    instrument: instrument,
+    result: result,
+    csvData: csvData,
+    timestamp: Date.now()
+  };
+  previousRuns.push(newRun);
   localStorage.setItem('previousRuns', JSON.stringify(previousRuns));
 }
 
@@ -267,11 +273,26 @@ function searchRuns() {
           <p>Instrument: ${run.instrument}</p>
           <p>Result: ${run.result}</p>
           <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
+          <button onclick="downloadCSV('${encodeURIComponent(run.csvData)}')">Download CSV</button>
           <hr>
         `;
       previousRunsDiv.appendChild(runDiv);
     });
   }
+}
+
+// Function to handle CSV download
+function downloadCSV(csvData) {
+  const decodedCsvData = decodeURIComponent(csvData);
+  const blob = new Blob([decodedCsvData], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'run_data.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function resetForm() {
