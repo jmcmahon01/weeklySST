@@ -152,10 +152,10 @@ function toggleISTDAnalytes() {
 
   if (istDContainer.style.display === 'none' || !istDContainer.style.display) {
     istDContainer.style.display = 'block';
-    toggleButton.textContent = 'Hide ISTD Analytes';
+    toggleButton.textContent = 'Hide ISTD Means';
   } else {
     istDContainer.style.display = 'none';
-    toggleButton.textContent = 'Show ISTD Analytes';
+    toggleButton.textContent = 'Show ISTD Means';
   }
 }
 
@@ -328,7 +328,7 @@ function displayEstablishedMeans() {
   // Add another "Hide Established Means" button at the bottom
   const hideButtonBottom = document.createElement('button');
   hideButtonBottom.id = 'hideMeansBtnBottom';
-  hideButtonBottom.textContent = 'Hide Established Means';
+  hideButtonBottom.textContent = 'Hide Parent Analyte Means';
   container.appendChild(hideButtonBottom);
 
   // Attach event listener to the save button
@@ -379,10 +379,10 @@ function toggleEstablishedMeans() {
 
   if (meansContainer.style.display === 'none' || !meansContainer.style.display) {
     meansContainer.style.display = 'block';
-    toggleButton.textContent = 'Hide Established Means';
+    toggleButton.textContent = 'Hide Parent Analyte Means';
   } else {
     meansContainer.style.display = 'none';
-    toggleButton.textContent = 'Show Established Means';
+    toggleButton.textContent = 'Show Parent Analyte Means';
   }
 }
 
