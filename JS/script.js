@@ -126,7 +126,6 @@ function saveEstablishedMeans() {
   alert('Established means have been saved successfully!');
 }
 
-
 let istdAnalytes = JSON.parse(localStorage.getItem('istdAnalytes')) || { ...IstdAnalytes };
 
 function saveISTDAnalytes() {
@@ -144,21 +143,6 @@ function saveISTDAnalytes() {
   console.log('Updated ISTD Analytes:', updatedISTD);
   alert('ISTD analytes have been saved successfully!');
 }
-
-// Function to toggle ISTD analytes display
-function toggleISTDAnalytes() {
-  const istDContainer = document.getElementById('istdContainer');
-  const toggleButton = document.getElementById('toggleISTDBtn');
-
-  if (istDContainer.style.display === 'none' || !istDContainer.style.display) {
-    istDContainer.style.display = 'block';
-    toggleButton.textContent = 'Hide ISTD Means';
-  } else {
-    istDContainer.style.display = 'none';
-    toggleButton.textContent = 'Show ISTD Means';
-  }
-}
-
 
 function analyzeData() {
   const fileInput = document.getElementById('fileUpload');
@@ -330,7 +314,7 @@ function displayEstablishedMeans() {
   saveButton.textContent = 'Save Changes';
   container.appendChild(saveButton);
 
-  // Add another "Hide Established Means" button at the bottom
+  // Add another "Hide Parent Analyte Means" button at the bottom
   const hideButtonBottom = document.createElement('button');
   hideButtonBottom.id = 'hideMeansBtnBottom';
   hideButtonBottom.textContent = 'Hide Parent Analyte Means';
@@ -388,6 +372,19 @@ function toggleEstablishedMeans() {
   } else {
     meansContainer.style.display = 'none';
     toggleButton.textContent = 'Show Parent Analyte Means';
+  }
+}
+// Function to toggle ISTD analytes display
+function toggleISTDAnalytes() {
+  const istDContainer = document.getElementById('istdContainer');
+  const toggleButton = document.getElementById('toggleISTDBtn');
+
+  if (istDContainer.style.display === 'none' || !istDContainer.style.display) {
+    istDContainer.style.display = 'block';
+    toggleButton.textContent = 'Hide ISTD Means';
+  } else {
+    istDContainer.style.display = 'none';
+    toggleButton.textContent = 'Show ISTD Means';
   }
 }
 
