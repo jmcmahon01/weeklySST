@@ -342,7 +342,7 @@ function displayIstdAnalytes() {
 
   for (const analyte in istdAnalytes) {
     if (IstdAnalytes.hasOwnProperty(analyte)) {
-      const { peakArea, retentionTime } = IstdAnalytes[analyte];
+      const { peakArea, retentionTime } = istdAnalytes[analyte];
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('istd-analyte-item');
       analyteDiv.innerHTML = `
