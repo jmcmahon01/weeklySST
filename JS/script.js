@@ -159,11 +159,19 @@ function analyzeData() {
     let passCount = 0;
     let failCount = 0;
     const results = [];
+    let batchName = ''; // Initialize batchName
 
-    rows.forEach(row => {
+    rows.forEach((row, index) => {
       if (row.trim() === '') return; // Skip empty rows
 
-      const [analyte, peakArea, retentionTime] = row.split(',').map(item => item.trim());
+      const columns = row.split(',').map(item => item.trim());
+      if (index === 0) {
+        batchName = columns[0]; // Extract batchName from the first row
+      }
+      const analyte = columns[4];
+      const retentionTime = columns[14];
+      const peakArea = columns[15];
+
       if (!analyte || isNaN(peakArea) || isNaN(retentionTime)) return;
 
       let meanValues = establishedMeans[analyte] || IstdAnalytes[analyte];
@@ -199,16 +207,16 @@ function analyzeData() {
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('analyte-result');
       analyteDiv.innerHTML = `
-          <h3>${result.analyte}</h3>
-          <p>Peak Area: ${result.peakArea} (${result.peakAreaPass ? 'Pass' : 'Fail'})</p>
-          <p>Retention Time: ${result.retentionTime} (${result.retentionTimePass ? 'Pass' : 'Fail'})</p>
-          <hr>
-        `;
+        <h3>${result.analyte}</h3>
+        <p>Peak Area: ${result.peakArea} (${result.peakAreaPass ? 'Pass' : 'Fail'})</p>
+        <p>Retention Time: ${result.retentionTime} (${result.retentionTimePass ? 'Pass' : 'Fail'})</p>
+        <hr>
+      `;
       resultDiv.appendChild(analyteDiv);
     });
 
     const selectedInstrument = document.getElementById('lcms').value;
-    saveRun(selectedInstrument, runResult, csvData);
+    saveRun(selectedInstrument, batchName, runResult, csvData);
   };
 
   reader.onerror = function (error) {
@@ -218,11 +226,17 @@ function analyzeData() {
   reader.readAsText(fileInput.files[0]);
 }
 
-function saveRun(instrument, result, csvData) {
+function saveRun(instrument, batchName, result, csvData) {
+  // Extract batchName from CSV (use only if necessary)
+  const rows = csvData.split('\n').slice(1); // Skip header row
+  const firstRow = rows[0].split(',').map(item => item.trim());
+  const batchNameFromCSV = firstRow[0];
+
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
   const newRun = {
     instrument: instrument,
     result: result,
+    batchName: batchNameFromCSV, // Use batch name from CSV here
     csvData: csvData,
     timestamp: Date.now()
   };
@@ -237,50 +251,30 @@ function searchRuns() {
     return;
   }
 
-  const query = searchInput.value.toLowerCase();
+  const query = searchInput.value.trim().toLowerCase();
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
 
-  if (!Array.isArray(previousRuns)) {
-    console.error('previousRuns is not an array');
-    return;
-  }
-
   const filteredRuns = previousRuns.filter(run => {
-    const instrumentValid = typeof run.instrument === 'string';
-    const resultValid = typeof run.result === 'string';
-
-    if (!instrumentValid || !resultValid) {
-      console.warn('Invalid run format:', run);
-      return false;
-    }
-
-    return (
-      run.instrument.toLowerCase().includes(query) ||
-      run.result.toLowerCase().includes(query)
-    );
+    return run.instrument.toLowerCase().includes(query);
   });
 
   const previousRunsDiv = document.getElementById('previousRuns');
   previousRunsDiv.innerHTML = ''; // Clear previous runs display
 
-  if (filteredRuns.length === 0) {
-    previousRunsDiv.innerHTML = '<p>No matching runs found.</p>';
-  } else {
-    filteredRuns.forEach(run => {
-      const runDiv = document.createElement('div');
-      runDiv.classList.add('run-result');
-      runDiv.innerHTML = `
-          <p>Instrument: ${run.instrument}</p>
-          <p>Result: ${run.result}</p>
-          <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
-          <button onclick="downloadCSV('${encodeURIComponent(run.csvData)}')">Download CSV</button>
-          <hr>
-        `;
-      previousRunsDiv.appendChild(runDiv);
-    });
-  }
+  filteredRuns.forEach(run => {
+    const runDiv = document.createElement('div');
+    runDiv.classList.add('run-result');
+    runDiv.innerHTML = `
+      <h3>Instrument: ${run.instrument}</h3>
+      <p>Batch: ${run.batchName}</p>
+      <p>Result: ${run.result}</p>
+      <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
+      <textarea readonly>${run.csvData}</textarea>
+      <hr>
+    `;
+    previousRunsDiv.appendChild(runDiv);
+  });
 }
-
 // Function to handle CSV download
 function downloadCSV(csvData) {
   const decodedCsvData = decodeURIComponent(csvData);
