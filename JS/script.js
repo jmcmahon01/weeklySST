@@ -159,15 +159,12 @@ function analyzeData() {
     let passCount = 0;
     let failCount = 0;
     const results = [];
-    let batchName = ''; // Initialize batchName
 
-    rows.forEach((row, index) => {
+    rows.forEach(row => {
       if (row.trim() === '') return; // Skip empty rows
 
       const columns = row.split(',').map(item => item.trim());
-      if (index === 0) {
-        batchName = columns[0]; // Extract batchName from the first row
-      }
+      const batchName = columns[0];
       const analyte = columns[4];
       const retentionTime = columns[14];
       const peakArea = columns[15];
@@ -207,11 +204,11 @@ function analyzeData() {
       const analyteDiv = document.createElement('div');
       analyteDiv.classList.add('analyte-result');
       analyteDiv.innerHTML = `
-        <h3>${result.analyte}</h3>
-        <p>Peak Area: ${result.peakArea} (${result.peakAreaPass ? 'Pass' : 'Fail'})</p>
-        <p>Retention Time: ${result.retentionTime} (${result.retentionTimePass ? 'Pass' : 'Fail'})</p>
-        <hr>
-      `;
+          <h3>${result.analyte}</h3>
+          <p>Peak Area: ${result.peakArea} (${result.peakAreaPass ? 'Pass' : 'Fail'})</p>
+          <p>Retention Time: ${result.retentionTime} (${result.retentionTimePass ? 'Pass' : 'Fail'})</p>
+          <hr>
+        `;
       resultDiv.appendChild(analyteDiv);
     });
 
@@ -227,16 +224,11 @@ function analyzeData() {
 }
 
 function saveRun(instrument, batchName, result, csvData) {
-  // Extract batchName from CSV (use only if necessary)
-  const rows = csvData.split('\n').slice(1); // Skip header row
-  const firstRow = rows[0].split(',').map(item => item.trim());
-  const batchNameFromCSV = firstRow[0];
-
   const previousRuns = JSON.parse(localStorage.getItem('previousRuns')) || [];
   const newRun = {
     instrument: instrument,
+    batchName: batchName, // Ensure batch name is saved
     result: result,
-    batchName: batchNameFromCSV, // Use batch name from CSV here
     csvData: csvData,
     timestamp: Date.now()
   };
@@ -269,12 +261,13 @@ function searchRuns() {
       <p>Batch: ${run.batchName}</p>
       <p>Result: ${run.result}</p>
       <p>Date: ${new Date(run.timestamp).toLocaleString()}</p>
-      <textarea readonly>${run.csvData}</textarea>
+      <button onclick="downloadCSV('${encodeURIComponent(run.csvData)}')">Download CSV</button>
       <hr>
     `;
     previousRunsDiv.appendChild(runDiv);
   });
 }
+
 // Function to handle CSV download
 function downloadCSV(csvData) {
   const decodedCsvData = decodeURIComponent(csvData);
@@ -288,7 +281,6 @@ function downloadCSV(csvData) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
-
 function resetForm() {
   document.getElementById('lcms').value = ''; // Clear instrument selection
   document.getElementById('fileUpload').value = ''; // Clear file input
