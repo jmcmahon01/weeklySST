@@ -159,12 +159,13 @@ function analyzeData() {
     let passCount = 0;
     let failCount = 0;
     const results = [];
+    let batchName = ''; // Declare batchName outside the loop
 
     rows.forEach(row => {
       if (row.trim() === '') return; // Skip empty rows
 
       const columns = row.split(',').map(item => item.trim());
-      const batchName = columns[0];
+      batchName = columns[0]; // Set batchName here
       const analyte = columns[4];
       const retentionTime = columns[14];
       const peakArea = columns[15];
@@ -193,6 +194,12 @@ function analyzeData() {
         failCount++;
       }
     });
+
+    // Check if batchName was set
+    if (!batchName) {
+      console.error('Batch name is undefined. Please check the CSV file.');
+      return;
+    }
 
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = ''; // Clear previous results
